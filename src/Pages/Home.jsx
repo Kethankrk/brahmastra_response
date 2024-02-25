@@ -42,22 +42,29 @@ function Home() {
       setIsLoading(false);
       return;
     }
-    (async () => {
-      for (const index in events) {
-        try {
-          const data = (await axios.get(events[index].link)).data.data;
-          const eventObj = {
-            title: events[index].name,
-            count: data ? data.length : 0,
-            reg: data ? data : [],
-          };
-          console.log(events[index].name, eventObj);
-          setEventList((prev) => prev.concat(eventObj));
-          cache.push(eventObj);
-        } catch (error) {
-          console.log(error);
-        }
+
+    const getData = async (name, link) => {
+      try {
+        const data = (await axios.get(link)).data.data;
+        const eventObj = {
+          title: name,
+          count: data ? data.length : 0,
+          reg: data ? data : [],
+        };
+        cache.push(eventObj);
+        return eventObj;
+      } catch (error) {
+        console.log(error);
+        return;
       }
+    };
+    (async () => {
+      const promise = [];
+      for (const index in events) {
+        promise.push(getData(events[index].name, events[index].link));
+      }
+      const result = await Promise.all(promise);
+      setEventList(result.filter((item) => item != undefined));
       setIsLoading(false);
     })();
   }, []);
