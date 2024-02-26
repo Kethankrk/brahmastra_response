@@ -32,6 +32,10 @@ function Home() {
       name: "FREE FIRE",
       link: "https://script.google.com/macros/s/AKfycbygY2UKUSITG_TTh6FHLjpKBtYFfFJqwZVa-wcb_1ZXteea3T8Iv-7u0RP2OFoGyF1l/exec",
     },
+    {
+      name: "E-FOOTBALL",
+      link: "https://script.google.com/macros/s/AKfycbzqVWqlLwze_i73Bxh4tQFALKFtn3uZfeOts9YhN5qLLoLlRKI54M7rU-YzXsCmTx2IiA/exec",
+    },
   ];
 
   const [eventList, setEventList] = useState([]);
